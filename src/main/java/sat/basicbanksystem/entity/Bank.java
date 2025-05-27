@@ -17,6 +17,7 @@ import java.util.List;
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Bank extends BaseEntity<Long> {
+
     @Column(nullable = false, unique = true, length = 30)
     String name;
 
