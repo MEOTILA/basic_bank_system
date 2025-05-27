@@ -1,11 +1,10 @@
 package sat.basicbanksystem.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
+import sat.basicbanksystem.entity.base.BaseEntity;
 import sat.basicbanksystem.entity.enums.TransactionStatus;
 
 import java.time.LocalDateTime;
@@ -33,10 +32,11 @@ public class Transaction extends BaseEntity<Long> {
     @Column(nullable = false)
     Long fee;
 
-    @Column(nullable = false)
-    LocalDateTime transactionDate;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     TransactionStatus transactionStatus;
+
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    LocalDateTime createdAt;
 }

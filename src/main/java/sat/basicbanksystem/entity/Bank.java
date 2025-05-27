@@ -7,6 +7,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import sat.basicbanksystem.entity.base.BaseEntity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

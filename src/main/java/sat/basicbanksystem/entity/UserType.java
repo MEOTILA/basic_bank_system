@@ -2,12 +2,11 @@ package sat.basicbanksystem.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import sat.basicbanksystem.entity.base.BaseEntity;
 
 import java.time.LocalDateTime;
 
@@ -17,10 +16,11 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserType extends BaseEntity<Long> {
 
     @Column(nullable = false, unique = true, length = 30)
-    private String userType;
+    String userType;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)

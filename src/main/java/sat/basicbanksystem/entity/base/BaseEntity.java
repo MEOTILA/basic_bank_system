@@ -1,4 +1,4 @@
-package sat.basicbanksystem.entity;
+package sat.basicbanksystem.entity.base;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

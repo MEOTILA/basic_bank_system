@@ -1,11 +1,11 @@
 package sat.basicbanksystem.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import sat.basicbanksystem.entity.base.BaseEntity;
 import sat.basicbanksystem.entity.enums.CardStatus;
 
 import java.time.LocalDate;
@@ -23,7 +23,7 @@ import java.util.List;
 public class Card extends BaseEntity<Long> {
 
     @Column(nullable = false)
-    Long balance;
+    Long balance = 0L;
 
     @Column(nullable = false, unique = true, length = 16)
     String cardNumber;
