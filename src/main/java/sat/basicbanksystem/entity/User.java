@@ -3,6 +3,7 @@ package sat.basicbanksystem.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import sat.basicbanksystem.entity.base.BaseEntity;
@@ -19,6 +20,7 @@ import java.util.List;
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "users")
+@SuperBuilder
 public class User extends BaseEntity<Long> {
 
     @Column(length = 25, nullable = false)

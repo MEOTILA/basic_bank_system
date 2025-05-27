@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import sat.basicbanksystem.entity.base.BaseEntity;
@@ -20,6 +21,7 @@ import java.util.List;
 @Setter
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@SuperBuilder
 public class Bank extends BaseEntity<Long> {
 
     @Column(nullable = false, unique = true, length = 30)

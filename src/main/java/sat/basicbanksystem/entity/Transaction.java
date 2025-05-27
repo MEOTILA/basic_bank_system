@@ -3,6 +3,7 @@ package sat.basicbanksystem.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import sat.basicbanksystem.entity.base.BaseEntity;
 import sat.basicbanksystem.entity.enums.TransactionStatus;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@SuperBuilder
 public class Transaction extends BaseEntity<Long> {
 
     @ManyToOne(optional = false)

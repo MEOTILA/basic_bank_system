@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import sat.basicbanksystem.entity.base.BaseEntity;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@SuperBuilder
 public class UserType extends BaseEntity<Long> {
 
     @Column(nullable = false, unique = true, length = 30)
