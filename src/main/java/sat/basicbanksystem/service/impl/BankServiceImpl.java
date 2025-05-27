@@ -11,13 +11,14 @@ import sat.basicbanksystem.exception.CustomApiExceptionType;
 import sat.basicbanksystem.repository.BankRepository;
 import sat.basicbanksystem.service.BankService;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 @Transactional
 @Slf4j
 @Validated
 public class BankServiceImpl implements BankService {
-
     private final BankRepository bankRepository;
 
     @Override
@@ -49,5 +50,10 @@ public class BankServiceImpl implements BankService {
         return bankRepository.findByName(name)
                 .orElseThrow(() -> new CustomApiException("Bank with name {"
                         + name +"} is not found!", CustomApiExceptionType.NOT_FOUND));
+    }
+
+    @Override
+    public List<Bank> findAll(){
+        return bankRepository.findAll();
     }
 }

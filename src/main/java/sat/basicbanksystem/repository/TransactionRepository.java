@@ -6,4 +6,5 @@ import sat.basicbanksystem.entity.Transaction;
 
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction,Long> {
+
 }
