@@ -8,9 +8,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Getter
 @Setter
 @Entity
@@ -45,6 +47,9 @@ public class User extends BaseEntity<Long> {
     @ManyToOne(optional = false)
     UserType userType;
 
+    @OneToMany(mappedBy = "user")
+    List<Card> cards;
+
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     LocalDateTime createdAt;
@@ -52,6 +57,4 @@ public class User extends BaseEntity<Long> {
     @UpdateTimestamp
     @Column(nullable = false)
     LocalDateTime updatedAt;
-
-
 }

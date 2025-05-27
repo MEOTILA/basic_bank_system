@@ -1,11 +1,12 @@
 package sat.basicbanksystem.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,8 +14,10 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @Entity
-public class UserType extends BaseEntity<Long> {
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class Bank extends BaseEntity<Long> {
+    String name;
 
-    @Column(nullable = false, unique = true, length = 30)
-    private String userType;
+    @OneToMany(mappedBy = "bank")
+    List<Card> cards = new ArrayList<>();
 }
