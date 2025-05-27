@@ -13,9 +13,9 @@ import lombok.experimental.FieldDefaults;
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Card extends BaseEntity<Long> {
-    @ManyToOne
+    @ManyToOne(optional = false)
     Bank bank;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     User user;
 }
