@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import sat.basicbanksystem.entity.UserType;
 import sat.basicbanksystem.exception.CustomApiException;
@@ -23,19 +24,30 @@ public class UserTypeServiceImpl implements UserTypeService {
 
     @Override
     public void save(UserType userType) {
-        userTypeRepository.save(userType);
+        checkUserTypeExists(userType.getUserType());
+        UserType savedUserType = userTypeRepository.save(userType);
+        log.info("UserType with ID {} is saved", savedUserType.getId());
     }
 
     @Override
-    public void update(Long id) {
-        UserType updatingUserType = findById(id);
+    public void update(UserType userType) {
+        UserType updatingUserType = findById(userType.getId());
+
+        if (StringUtils.hasText(userType.getUserType()) &&
+                !userType.getUserType().equals(updatingUserType.getUserType())) {
+            checkUserTypeExists(userType.getUserType());
+            updatingUserType.setUserType(userType.getUserType());
+        }
+
         userTypeRepository.save(updatingUserType);
+        log.info("UserType with ID {} is updated", updatingUserType.getId());
     }
 
     @Override
     public void delete(Long id) {
         UserType deletingUserType = findById(id);
         userTypeRepository.delete(deletingUserType);
+        log.info("UserType with ID {} is deleted", id);
     }
 
     @Override
@@ -55,5 +67,13 @@ public class UserTypeServiceImpl implements UserTypeService {
     @Override
     public List<UserType> findAll() {
         return userTypeRepository.findAll();
+    }
+
+    private void checkUserTypeExists(String userType) {
+        if (userTypeRepository.existsByUserType(userType)) {
+            throw new CustomApiException("UserType {"
+                    + userType + "} already exists!",
+                    CustomApiExceptionType.UNPROCESSABLE_ENTITY);
+        }
     }
 }

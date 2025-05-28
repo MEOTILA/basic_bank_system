@@ -8,7 +8,7 @@ public interface UserTypeService {
 
     void save(UserType userType);
 
-    void update(Long id);
+    void update(UserType userType);
 
     void delete(Long id);
 
