@@ -18,7 +18,7 @@ import sat.basicbanksystem.service.TransactionService;
 import sat.basicbanksystem.service.UserService;
 
 @RestController
-@RequestMapping("/v1/payment")
+@RequestMapping("/v1/user")
 @RequiredArgsConstructor
 @Validated
 public class UserController {
@@ -26,6 +26,7 @@ public class UserController {
     private final TransactionService transactionService;
     private final CardToCardService cardToCardService;
     private final CardService cardService;
+
     @PostMapping("/transfer")
     public ResponseEntity<TransactionResponseDTO> transfer(@Valid @RequestBody CardToCardRequestDTO request) {
         Transaction transaction = cardToCardService.transfer(
