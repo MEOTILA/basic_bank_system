@@ -42,6 +42,15 @@ public class CardToCardServiceImpl implements CardToCardService {
         Card fromCard = cardService.findByCardNumber(fromCardNumber);
         Card toCard = cardService.findByCardNumber(toCardNumber);
 
+        if (fromCard.getCardStatus().equals(CardStatus.IN_ACTIVE)) {
+            throw new CustomApiException("Your card is Inactive!",
+                    CustomApiExceptionType.BAD_REQUEST);
+        }
+        if (toCard.getCardStatus().equals(CardStatus.IN_ACTIVE)) {
+            throw new CustomApiException("Destination card is Inactive!",
+                    CustomApiExceptionType.BAD_REQUEST);
+        }
+
         if (fromCard.getExpireDate().isBefore(LocalDate.now())) {
             log.warn("Card '{}' is expired."
                     , fromCardNumber);
