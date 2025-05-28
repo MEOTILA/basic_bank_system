@@ -49,14 +49,14 @@ public class BasicBankSystemApplication {
         //userService.save(user1);
 
         User user2 = User.builder()
-                .firstName("Sara")
-                .lastName("Samimi")
-                .username("sara.samimi")
-                .password("Sara@1234")
-                .nationalId("0012023513")
-                .phoneNumber("09121206511")
+                .firstName("Mohsen")
+                .lastName("Abbasi")
+                .username("mohesn.abbasi")
+                .password("Mohsen@1234")
+                .nationalId("0012023514")
+                .phoneNumber("09121206515")
                 .birthday(LocalDate.of(1998, 12, 12))
-                .email("sara@example.com")
+                .email("mohsen@example.com")
                 .userType(userType1)
                 .build();
         //userService.save(user2);
