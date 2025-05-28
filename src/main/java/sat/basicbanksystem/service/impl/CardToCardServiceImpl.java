@@ -26,11 +26,11 @@ public class CardToCardServiceImpl implements CardToCardService {
     private final TransactionService transactionService;
 
     @Override
-    public TransactionStatus transfer(String fromCardNumber, String toCardNumber, Long amount,
+    public Transaction transfer(String fromCardNumber, String toCardNumber, Long amount,
                          String pin, String cvv2, LocalDate expireDate) {
 
-        Transaction transaction = new Transaction();
-        TransactionStatus status = TransactionStatus.FAILED;
+        Transaction transaction;
+        //TransactionStatus status = TransactionStatus.FAILED;
         final Long fee = 6000L;
 
         if (fromCardNumber.equals(toCardNumber)) {
@@ -61,10 +61,10 @@ public class CardToCardServiceImpl implements CardToCardService {
                     .toCard(toCard)
                     .amount(amount)
                     .fee(fee)
-                    .transactionStatus(status)
+                    .transactionStatus(TransactionStatus.FAILED)
                     .build();
             transactionService.save(transaction);
-            return status;
+            return transaction;
         }
 
         boolean authenticationFailed = false;
@@ -99,7 +99,7 @@ public class CardToCardServiceImpl implements CardToCardService {
                     .build();
 
             transactionService.save(transaction);
-            return status;
+            return transaction;
         }
 
         Long total = amount + fee;
@@ -127,11 +127,10 @@ public class CardToCardServiceImpl implements CardToCardService {
                 .fee(fee)
                 .transactionStatus(TransactionStatus.SUCCESSFUL)
                 .build();
-        status = TransactionStatus.SUCCESSFUL;
 
         transactionService.save(transaction);
 
         log.info("Transferred {} from {} to {}", amount, fromCardNumber, toCardNumber);
-        return status;
+        return transaction;
     }
 }

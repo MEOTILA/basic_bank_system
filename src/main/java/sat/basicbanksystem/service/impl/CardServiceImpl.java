@@ -18,7 +18,6 @@ import java.util.List;
 @Service
 @Transactional
 @Slf4j
-@Validated
 public class CardServiceImpl implements CardService {
     private final CardRepository cardRepository;
 

@@ -1,10 +1,10 @@
 package sat.basicbanksystem.service;
 
-import sat.basicbanksystem.entity.enums.TransactionStatus;
+import sat.basicbanksystem.entity.Transaction;
 
 import java.time.LocalDate;
 
 public interface CardToCardService {
-    TransactionStatus transfer(String fromCardNumber, String toCardNumber, Long amount,
-                               String pin, String cvv2, LocalDate expireDate);
+    Transaction transfer(String fromCardNumber, String toCardNumber, Long amount,
+                         String pin, String cvv2, LocalDate expireDate);
 }

@@ -18,7 +18,6 @@ import java.util.List;
 @Service
 @Transactional
 @Slf4j
-@Validated
 public class BankServiceImpl implements BankService {
     private final BankRepository bankRepository;
 

@@ -17,7 +17,6 @@ import java.util.List;
 @Service
 @Transactional
 @Slf4j
-@Validated
 public class TransactionServiceImpl implements TransactionService {
     private final TransactionRepository transactionRepository;
 
