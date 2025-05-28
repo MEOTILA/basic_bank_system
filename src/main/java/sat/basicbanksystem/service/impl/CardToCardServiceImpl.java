@@ -21,7 +21,6 @@ import java.time.LocalDate;
 @Service
 @Transactional
 @Slf4j
-@Validated
 public class CardToCardServiceImpl implements CardToCardService {
     private final CardService cardService;
     private final TransactionService transactionService;

@@ -98,13 +98,13 @@ public class BasicBankSystemApplication {
         Card foundedCard1 = cardService.findById(2L);
         Card foundedCard2 = cardService.findById(3L);
 
-        CardToCardService.transfer("1111222233334444",
+        /*CardToCardService.transfer("1111222233334444",
                 "5555666677778888",
                 31575L,
                 "1234",
                 "456",
                 LocalDate.of(2026, 12, 31)
-        );
+        );*/
 
 
     }
