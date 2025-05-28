@@ -24,25 +24,19 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public void save(Transaction transaction) {
         transactionRepository.save(transaction);
-    }
-
-    @Override
-    public void update(Long id) {
-        Transaction updatingTransaction = findById(id);
-        transactionRepository.save(updatingTransaction);
-    }
-
-    @Override
-    public void delete(Long id) {
-        Transaction deletingTransaction = findById(id);
-        transactionRepository.delete(deletingTransaction);
+        log.info("Transaction saved: fromCard={}, toCard={}, amount={}, status={}",
+                transaction.getFromCard().getCardNumber(),
+                transaction.getToCard().getCardNumber(),
+                transaction.getAmount(),
+                transaction.getTransactionStatus());
     }
 
     @Override
     public Transaction findById(Long id) {
         return transactionRepository.findById(id)
                 .orElseThrow(() -> new CustomApiException("Transaction with ID {"
-                        + id + "} is not found!", CustomApiExceptionType.NOT_FOUND));
+                        + id + "} is not found!",
+                        CustomApiExceptionType.NOT_FOUND));
     }
 
     @Override
