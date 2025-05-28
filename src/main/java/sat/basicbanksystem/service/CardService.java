@@ -9,7 +9,7 @@ public interface CardService {
 
     void save(Card card);
 
-    void update(Long id);
+    void update(Card card);
 
     void delete(Long id);
 
