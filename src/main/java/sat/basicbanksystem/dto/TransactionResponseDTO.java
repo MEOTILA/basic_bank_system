@@ -2,10 +2,13 @@ package sat.basicbanksystem.dto;
 
 import sat.basicbanksystem.entity.enums.TransactionStatus;
 
-public record CardToCardResponseDTO(
+import java.time.LocalDateTime;
+
+public record TransactionResponseDTO(
     String fromCardNumber,
     String toCardNumber,
     Long amount,
     Long fee,
-    TransactionStatus status
+    TransactionStatus status,
+    LocalDateTime date
 ) {}
