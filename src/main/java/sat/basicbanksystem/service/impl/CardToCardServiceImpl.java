@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 import sat.basicbanksystem.entity.Card;
 import sat.basicbanksystem.entity.Transaction;
 import sat.basicbanksystem.entity.enums.CardStatus;
@@ -30,7 +29,6 @@ public class CardToCardServiceImpl implements CardToCardService {
                          String pin, String cvv2, LocalDate expireDate) {
 
         Transaction transaction;
-        //TransactionStatus status = TransactionStatus.FAILED;
         final Long fee = 6000L;
 
         if (fromCardNumber.equals(toCardNumber)) {
