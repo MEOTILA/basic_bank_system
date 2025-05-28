@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import sat.basicbanksystem.entity.Bank;
 import sat.basicbanksystem.exception.CustomApiException;
@@ -23,19 +24,31 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public void save(Bank bank) {
-        bankRepository.save(bank);
+        isBankExist(bank.getName());
+        Bank savedBank = bankRepository.save(bank);
+        log.info("Bank with ID {} is saved", savedBank.getId());
     }
 
     @Override
-    public void update(Long id) {
-        Bank updatingBank = findById(id);
+    public void update(Bank bank) {
+        Bank updatingBank = findById(bank.getId());
+
+        if (StringUtils.hasText(bank.getName()) &&
+                !bank.getName().equals(updatingBank.getName())) {
+
+            isBankExist(bank.getName());
+            updatingBank.setName(bank.getName());
+        }
+
         bankRepository.save(updatingBank);
+        log.info("Bank with ID {} is updated", updatingBank.getId());
     }
 
     @Override
     public void delete(Long id) {
-        Bank delitingBank = findById(id);
-        bankRepository.delete(delitingBank);
+        Bank deletingBank = findById(id);
+        bankRepository.delete(deletingBank);
+        log.info("Bank with ID {} is deleted", id);
     }
 
     @Override
@@ -55,5 +68,13 @@ public class BankServiceImpl implements BankService {
     @Override
     public List<Bank> findAll(){
         return bankRepository.findAll();
+    }
+
+    private void isBankExist(String name) {
+        if (bankRepository.existsByName(name)) {
+            throw new CustomApiException("Bank with name {"
+                    + name + "} already exists!",
+                    CustomApiExceptionType.UNPROCESSABLE_ENTITY);
+        }
     }
 }
