@@ -1,6 +1,9 @@
 package sat.basicbanksystem.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.NativeQuery;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import sat.basicbanksystem.entity.Card;
 
@@ -14,5 +17,6 @@ public interface CardRepository extends JpaRepository<Card,Long> {
 
     boolean existsByCardNumber(String cardNumber);
 
-    List<Card> findByUserId(Long id);
+    @Query(value = "SELECT c FROM Card c WHERE c.user.id = :userId")
+    List<Card> findByUserId(@Param("userId") Long userId);
 }

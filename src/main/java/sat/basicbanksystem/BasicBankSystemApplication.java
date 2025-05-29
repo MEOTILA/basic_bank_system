@@ -66,9 +66,10 @@ public class BasicBankSystemApplication {
         Bank bank2 = bankService.findById(3L);
         User foundedUser1 = userService.findById(1L);
         User foundedUser2 = userService.findById(2L);
+        User foundedUser3 = userService.findById(3L);
 
         Card card1 = Card.builder()
-                .cardNumber("1111222233334444")
+                .cardNumber("1111220233334441")
                 .balance(500000L)
                 .withdrawLimitation(1_000_000L)
                 .pin("1234")
@@ -77,11 +78,11 @@ public class BasicBankSystemApplication {
                 .expireDate(LocalDate.of(2026, 12, 31))
                 .cardStatus(CardStatus.ACTIVE)
                 .bank(bank1)
-                .user(foundedUser1)
+                .user(foundedUser3)
                 .build();
 
         Card card2 = Card.builder()
-                .cardNumber("5555666677778888")
+                .cardNumber("555561667778888")
                 .balance(200000L)
                 .withdrawLimitation(500_000L)
                 .pin("5678")
@@ -92,7 +93,7 @@ public class BasicBankSystemApplication {
                 .bank(bank2)
                 .user(foundedUser2)
                 .build();
-        //cardService.save(card1);
+        cardService.save(card1);
         //cardService.save(card2);
 
         Card foundedCard1 = cardService.findById(2L);
@@ -105,8 +106,6 @@ public class BasicBankSystemApplication {
                 "456",
                 LocalDate.of(2026, 12, 31)
         );*/
-
-
     }
 
 }
