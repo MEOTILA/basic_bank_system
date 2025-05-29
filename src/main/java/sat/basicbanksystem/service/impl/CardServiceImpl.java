@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import org.springframework.validation.annotation.Validated;
 import sat.basicbanksystem.entity.Card;
 import sat.basicbanksystem.exception.CustomApiException;
 import sat.basicbanksystem.exception.CustomApiExceptionType;
@@ -112,6 +111,11 @@ public class CardServiceImpl implements CardService {
     @Override
     public List<Card> findAll() {
         return cardRepository.findAll();
+    }
+
+    @Override
+    public List<Card> findAllUserCards(Long userId){
+        return cardRepository.findByUserId(userId);
     }
 
     private void checkCardNumberExists(String cardNumber) {

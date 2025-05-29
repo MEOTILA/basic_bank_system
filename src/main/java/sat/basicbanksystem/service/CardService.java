@@ -18,4 +18,6 @@ public interface CardService {
     Card findByCardNumber(String cardNumber);
 
     List<Card> findAll();
+
+    List<Card> findAllUserCards(Long userId);
 }

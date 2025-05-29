@@ -6,7 +6,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import org.springframework.validation.annotation.Validated;
 import sat.basicbanksystem.entity.User;
 import sat.basicbanksystem.exception.CustomApiException;
 import sat.basicbanksystem.exception.CustomApiExceptionType;

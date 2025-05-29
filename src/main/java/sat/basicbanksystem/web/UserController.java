@@ -3,19 +3,19 @@ package sat.basicbanksystem.web;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sat.basicbanksystem.dto.CardToCardRequestDTO;
 import sat.basicbanksystem.dto.TransactionResponseDTO;
+import sat.basicbanksystem.dto.UserCardResponseDTO;
 import sat.basicbanksystem.entity.Transaction;
+import sat.basicbanksystem.entity.User;
 import sat.basicbanksystem.mapper.TransactionMapper;
-import sat.basicbanksystem.service.CardService;
-import sat.basicbanksystem.service.CardToCardService;
-import sat.basicbanksystem.service.TransactionService;
-import sat.basicbanksystem.service.UserService;
+import sat.basicbanksystem.security.CustomUserDetails;
+import sat.basicbanksystem.service.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/user")
@@ -26,6 +26,7 @@ public class UserController {
     private final TransactionService transactionService;
     private final CardToCardService cardToCardService;
     private final CardService cardService;
+    private final UserCardService userCardService;
 
     @PostMapping("/transfer")
     public ResponseEntity<TransactionResponseDTO> transfer(@Valid @RequestBody CardToCardRequestDTO request) {
@@ -38,5 +39,14 @@ public class UserController {
                 request.expireDate()
         );
         return ResponseEntity.ok(TransactionMapper.toResponseDTO(transaction));
+    }
+
+    @GetMapping("/userCard")
+    public ResponseEntity<List<UserCardResponseDTO>> getUserCardsInfo(
+            @AuthenticationPrincipal CustomUserDetails userDetails
+    ) {
+        Long userId = userDetails.getId();
+        List<UserCardResponseDTO> userCards = userCardService.getUserCardsInfo(userId);
+        return ResponseEntity.ok(userCards);
     }
 }
