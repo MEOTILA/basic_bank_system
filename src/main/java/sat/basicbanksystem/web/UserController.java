@@ -8,9 +8,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import sat.basicbanksystem.dto.CardToCardRequestDTO;
 import sat.basicbanksystem.dto.TransactionResponseDTO;
+import sat.basicbanksystem.dto.UpdateWithdrawLimitDTO;
 import sat.basicbanksystem.dto.UserCardResponseDTO;
 import sat.basicbanksystem.entity.Transaction;
-import sat.basicbanksystem.entity.User;
 import sat.basicbanksystem.mapper.TransactionMapper;
 import sat.basicbanksystem.security.CustomUserDetails;
 import sat.basicbanksystem.service.*;
@@ -48,5 +48,15 @@ public class UserController {
         Long userId = userDetails.getId();
         List<UserCardResponseDTO> userCards = userCardService.getUserCardsInfo(userId);
         return ResponseEntity.ok(userCards);
+    }
+
+    @PostMapping("/card/setLimit")
+    public ResponseEntity<Void> updateWithdrawLimit(
+            @RequestBody @Valid UpdateWithdrawLimitDTO request,
+            @AuthenticationPrincipal CustomUserDetails userDetails
+    ) {
+        userCardService.updateWithdrawLimitation(request.cardNumber(),
+                request.newLimit(), userDetails.getId());
+        return ResponseEntity.ok().build();
     }
 }

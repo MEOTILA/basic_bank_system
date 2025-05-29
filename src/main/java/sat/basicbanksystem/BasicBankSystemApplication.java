@@ -93,7 +93,7 @@ public class BasicBankSystemApplication {
                 .bank(bank2)
                 .user(foundedUser2)
                 .build();
-        cardService.save(card1);
+        //cardService.save(card1);
         //cardService.save(card2);
 
         Card foundedCard1 = cardService.findById(2L);

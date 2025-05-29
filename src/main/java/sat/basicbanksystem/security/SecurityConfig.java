@@ -19,7 +19,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/v1/user/transfer").hasRole("USER")
+                        .requestMatchers("/v1/user/**").hasRole("USER")
                         .anyRequest().permitAll()
                 )
                 .userDetailsService(userDetailsService)
