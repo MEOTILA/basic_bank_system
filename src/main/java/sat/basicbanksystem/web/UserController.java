@@ -7,12 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import sat.basicbanksystem.dto.CardToCardRequestDTO;
-import sat.basicbanksystem.dto.TransactionResponseDTO;
-import sat.basicbanksystem.dto.UpdateWithdrawLimitDTO;
-import sat.basicbanksystem.dto.UserCardResponseDTO;
+import sat.basicbanksystem.dto.*;
+import sat.basicbanksystem.entity.Card;
 import sat.basicbanksystem.entity.Transaction;
 import sat.basicbanksystem.mapper.TransactionMapper;
+import sat.basicbanksystem.mapper.UserCardMapper;
 import sat.basicbanksystem.security.CustomUserDetails;
 import sat.basicbanksystem.service.*;
 
@@ -62,5 +61,12 @@ public class UserController {
         userCardService.updateWithdrawLimitation(request.cardNumber(),
                 request.newLimit(), userDetails.getId());
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("transfer/getReceiver")
+    public ResponseEntity<ReceiverInfoResponseDTO> getReceiverInfo(
+            @RequestBody @Valid CardToCardRequestDTO request){
+        Card receiverCard = cardService.findByCardNumber(request.toCardNumber());
+        return ResponseEntity.ok(UserCardMapper.getReceiverInfo(receiverCard));
     }
 }
