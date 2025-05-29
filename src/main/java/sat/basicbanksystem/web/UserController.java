@@ -2,6 +2,7 @@ package sat.basicbanksystem.web;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Parameter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
@@ -29,14 +30,17 @@ public class UserController {
     private final UserCardService userCardService;
 
     @PostMapping("/transfer")
-    public ResponseEntity<TransactionResponseDTO> transfer(@Valid @RequestBody CardToCardRequestDTO request) {
+    public ResponseEntity<TransactionResponseDTO> transfer(
+            @Valid @RequestBody CardToCardRequestDTO request,
+            @AuthenticationPrincipal CustomUserDetails userDetails) {
         Transaction transaction = cardToCardService.transfer(
                 request.fromCardNumber(),
                 request.toCardNumber(),
                 request.amount(),
                 request.pin(),
                 request.cvv2(),
-                request.expireDate()
+                request.expireDate(),
+                userDetails.getId()
         );
         return ResponseEntity.ok(TransactionMapper.toResponseDTO(transaction));
     }

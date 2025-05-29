@@ -26,27 +26,30 @@ public class CardToCardServiceImpl implements CardToCardService {
 
     @Override
     public Transaction transfer(String fromCardNumber, String toCardNumber, Long amount,
-                         String pin, String cvv2, LocalDate expireDate) {
+                         String pin, String cvv2, LocalDate expireDate, Long userId) {
 
         Transaction transaction;
         final Long fee = 6000L;
 
-        if (fromCardNumber.equals(toCardNumber)) {
+        if (fromCardNumber.equals(toCardNumber))
             throw new CustomApiException("Cannot transfer to the same card",
                     CustomApiExceptionType.BAD_REQUEST);
-        }
 
         Card fromCard = cardService.findByCardNumber(fromCardNumber);
         Card toCard = cardService.findByCardNumber(toCardNumber);
 
-        if (fromCard.getCardStatus().equals(CardStatus.IN_ACTIVE)) {
+        if (!fromCard.getUser().getId().equals(userId))
+            throw new CustomApiException("From Card is not belongs to you",
+                    CustomApiExceptionType.UNAUTHORIZED);
+
+        if (fromCard.getCardStatus().equals(CardStatus.IN_ACTIVE))
             throw new CustomApiException("Your card is Inactive!",
                     CustomApiExceptionType.BAD_REQUEST);
-        }
-        if (toCard.getCardStatus().equals(CardStatus.IN_ACTIVE)) {
+
+        if (toCard.getCardStatus().equals(CardStatus.IN_ACTIVE))
             throw new CustomApiException("Destination card is Inactive!",
                     CustomApiExceptionType.BAD_REQUEST);
-        }
+
 
         if (fromCard.getExpireDate().isBefore(LocalDate.now())) {
             log.warn("Card '{}' is expired."
@@ -102,15 +105,13 @@ public class CardToCardServiceImpl implements CardToCardService {
 
         Long total = amount + fee;
 
-        if (fromCard.getBalance() < total) {
+        if (fromCard.getBalance() < total)
             throw new CustomApiException("Insufficient balance",
                     CustomApiExceptionType.BAD_REQUEST);
-        }
 
-        if (fromCard.getWithdrawLimitation() < total) {
+        if (fromCard.getWithdrawLimitation() < total)
             throw new CustomApiException("Withdraw limitation exceeded.",
                     CustomApiExceptionType.UNAUTHORIZED);
-        }
 
         fromCard.setBalance(fromCard.getBalance() - total);
         toCard.setBalance(toCard.getBalance() + amount);
