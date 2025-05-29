@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 public record TransactionResponseDTO(
     String fromCardNumber,
     String fromCardBank,
+    String toCardName,
     String toCardNumber,
     String toCardBank,
     Long amount,

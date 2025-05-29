@@ -9,6 +9,8 @@ public class TransactionMapper {
         return new TransactionResponseDTO(
                 transaction.getFromCard().getCardNumber(),
                 transaction.getFromCard().getBank().getName(),
+                transaction.getToCard().getUser().getFirstName() + " " +
+                        transaction.getToCard().getUser().getLastName(),
                 transaction.getToCard().getCardNumber(),
                 transaction.getToCard().getBank().getName(),
                 transaction.getAmount(),
