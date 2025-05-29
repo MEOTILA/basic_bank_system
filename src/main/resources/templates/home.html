@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="dashboard">
+    <h1>Dashboard</h1>
+
+    <div class="section">
+        <h2>My Cards</h2>
+        <button onclick="getUserCards()">Get cards</button>
+        <div id="userCards"></div>
+    </div>
+
+    <div class="section">
+        <h2>Card to Card</h2>
+        <form id="transferForm">
+            <input type="text" placeholder="from" name="fromCardNumber" required>
+            <input type="text" placeholder="to" name="toCardNumber" required>
+            <input type="number" placeholder="amount" name="amount" required>
+            <input type="text" placeholder="PIN" name="pin" required>
+            <input type="text" placeholder="CVV2" name="cvv2" required>
+            <input type="date" placeholder="expire date" name="expireDate" required>
+            <button type="submit" class="green-btn">Send</button>
+        </form>
+        <pre id="transferResult"></pre>
+    </div>
+
+    <div class="section">
+        <h2>Change withdraw limitation</h2>
+        <form id="limitForm">
+            <input type="text" placeholder="card number" name="cardNumber" required>
+            <input type="number" placeholder="new limit" name="newLimit" required>
+            <button type="submit" class="green-btn">Submit</button>
+        </form>
+        <pre id="limitResult"></pre>
+    </div>
+
+</div>
+
+<script th:src="@{/js/script.js}" defer></script>
+</body>
+</html>

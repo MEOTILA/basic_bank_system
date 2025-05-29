@@ -19,10 +19,25 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/login", "/logout", "/css/**", "/js/**").permitAll()
                         .requestMatchers("/v1/user/**").hasRole("USER")
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
                 )
                 .userDetailsService(userDetailsService)
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/home", true)
+                        .failureUrl("/login?error=true")
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout=true")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                        .permitAll()
+                )
                 .httpBasic(Customizer.withDefaults());
 
         return http.build();

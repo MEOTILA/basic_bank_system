@@ -1,0 +1,116 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #121212;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+    direction: ltr;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.dashboard {
+    width: 100%;
+    max-width: 800px;
+    background: #1e1e1e;
+    padding: 40px;
+    margin: 40px 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+    animation: fadeIn 0.8s ease-in;
+}
+
+.section {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    animation: fadeInUp 0.6s ease-in;
+}
+
+.section:first-of-type {
+    border-top: none;
+    padding-top: 0;
+}
+
+.section h2 {
+    color: #90caf9;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #bbdefb;
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+input, button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    font-size: 14px;
+    border-radius: 10px;
+    border: 1px solid #444;
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.green-btn {
+    background: linear-gradient(to right, #43a047, #2e7d32);
+    color: white;
+    font-weight: bold;
+    border: none;
+}
+
+.green-btn:hover {
+    background: linear-gradient(to right, #388e3c, #1b5e20);
+    transform: scale(1.03);
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+}
+
+button:not(.green-btn) {
+    background: linear-gradient(to right, #1e88e5, #1565c0);
+    color: white;
+    font-weight: bold;
+    border: none;
+}
+
+button:not(.green-btn):hover {
+    background: linear-gradient(to right, #1976d2, #0d47a1);
+    transform: scale(1.03);
+    box-shadow: 0 5px 15px rgba(30, 136, 229, 0.3);
+}
+
+pre {
+    background: #263238;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 8px;
+    font-size: 13px;
+    overflow-x: auto;
+    color: #cfd8dc;
+}
+
+#userCards > div {
+    background: #2c3e50;
+    border: 1px solid #455a64;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    animation: fadeInUp 0.6s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
