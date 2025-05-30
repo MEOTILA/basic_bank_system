@@ -62,7 +62,7 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("transfer/getReceiver")
+    @PostMapping("transfer/getReceiver")
     public ResponseEntity<ReceiverInfoResponseDTO> getReceiverInfo(
             @RequestBody @Valid CardToCardRequestDTO request){
         Card receiverCard = cardService.findByCardNumber(request.toCardNumber());

@@ -48,3 +48,14 @@ document.getElementById('limitForm').addEventListener('submit', async function (
         document.getElementById('limitResult').innerText = "Error!";
     }
 });
+
+document.getElementById('logoutBtn').addEventListener('click', function() {
+    fetch('/logout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(() => {
+        window.location.href = '/login?logout=true';
+    });
+});
