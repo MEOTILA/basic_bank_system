@@ -22,11 +22,11 @@ public class BasicBankSystemApplication {
         var userTypeService = context.getBean(UserTypeService.class);
 
         //todo: Bank initializer
-        /*Bank bank1 = Bank.builder().name("Pasargad").build();
-        bankService.save(bank1);
+        Bank bank1 = Bank.builder().name("Pasargad").build();
+        //bankService.save(bank1);
 
         Bank bank2 = Bank.builder().name("Saman").build();
-        bankService.save(bank2);*/
+        //bankService.save(bank2);
 
         //todo: UserType initializer
         UserType userType = UserType.builder().userType("USER").build();
@@ -37,11 +37,11 @@ public class BasicBankSystemApplication {
         User user1 = User.builder()
                 .firstName("Ali")
                 .lastName("Piroozfar")
-                .username("ali.piroozfar")
+                .username("Ali")
                 .password("Ali@1234")
                 .nationalId("0012023512")
                 .phoneNumber("09121206510")
-                .birthday(LocalDate.of(1990, 1, 1))
+                .birthday(LocalDate.of(1990, 9, 23))
                 .email("ali@example.com")
                 .userType(userType1)
                 .build();
@@ -49,55 +49,68 @@ public class BasicBankSystemApplication {
         //userService.save(user1);
 
         User user2 = User.builder()
-                .firstName("Mohsen")
-                .lastName("Abbasi")
-                .username("mohesn.abbasi")
-                .password("Mohsen@1234")
-                .nationalId("0012023514")
-                .phoneNumber("09121206515")
-                .birthday(LocalDate.of(1998, 12, 12))
-                .email("mohsen@example.com")
+                .firstName("Sara")
+                .lastName("Samimi")
+                .username("Sara")
+                .password("Sara@1234")
+                .nationalId("0084132069")
+                .phoneNumber("09124120365")
+                .birthday(LocalDate.of(1998, 10, 10))
+                .email("sara@example.com")
                 .userType(userType1)
                 .build();
         //userService.save(user2);
 
         //todo: Card initializer
-        Bank bank1 = bankService.findById(1L);
-        Bank bank2 = bankService.findById(3L);
+        Bank bank3 = bankService.findById(1L);
+        Bank bank4 = bankService.findById(2L);
         User foundedUser1 = userService.findById(1L);
         User foundedUser2 = userService.findById(2L);
-        User foundedUser3 = userService.findById(3L);
 
         Card card1 = Card.builder()
-                .cardNumber("1111220233334441")
-                .balance(500000L)
-                .withdrawLimitation(1_000_000L)
+                .cardNumber("5022291032301596")
+                .balance(50000000L)
+                .withdrawLimitation(1000000L)
                 .pin("1234")
                 .cvv2("456")
                 .failedAttemptCount(0L)
                 .expireDate(LocalDate.of(2026, 12, 31))
                 .cardStatus(CardStatus.ACTIVE)
-                .bank(bank1)
-                .user(foundedUser3)
+                .bank(bank3)
+                .user(foundedUser1)
                 .build();
 
         Card card2 = Card.builder()
-                .cardNumber("555561667778888")
-                .balance(200000L)
-                .withdrawLimitation(500_000L)
-                .pin("5678")
-                .cvv2("789")
+                .cardNumber("1466021066913210")
+                .balance(20000000L)
+                .withdrawLimitation(500000L)
+                .pin("1234")
+                .cvv2("456")
                 .failedAttemptCount(0L)
                 .expireDate(LocalDate.of(2025, 10, 15))
                 .cardStatus(CardStatus.ACTIVE)
-                .bank(bank2)
+                .bank(bank4)
+                .user(foundedUser2)
+                .build();
+
+        Card card3 = Card.builder()
+                .cardNumber("5022291063201699")
+                .balance(20000000L)
+                .withdrawLimitation(500000L)
+                .pin("1234")
+                .cvv2("456")
+                .failedAttemptCount(0L)
+                .expireDate(LocalDate.of(2025, 10, 15))
+                .cardStatus(CardStatus.ACTIVE)
+                .bank(bank3)
                 .user(foundedUser2)
                 .build();
         //cardService.save(card1);
         //cardService.save(card2);
+        //cardService.save(card3);
 
-        Card foundedCard1 = cardService.findById(2L);
-        Card foundedCard2 = cardService.findById(3L);
+        //Card foundedCard1 = cardService.findById(2L);
+        //Card foundedCard2 = cardService.findById(3L);
 
         /*CardToCardService.transfer("1111222233334444",
                 "5555666677778888",
