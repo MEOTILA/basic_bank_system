@@ -38,6 +38,11 @@ public class SecurityConfig {
                         .deleteCookies("JSESSIONID")
                         .permitAll()
                 )
+                .sessionManagement(session -> session
+                        .invalidSessionUrl("/login?session=invalid")
+                        .maximumSessions(1)
+                        .maxSessionsPreventsLogin(false)
+                )
                 .httpBasic(Customizer.withDefaults());
 
         return http.build();
