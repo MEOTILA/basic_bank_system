@@ -26,7 +26,7 @@ public class CardToCardServiceImpl implements CardToCardService {
 
     @Override
     public Transaction transfer(String fromCardNumber, String toCardNumber, Long amount,
-                         String pin, String cvv2, LocalDate expireDate, Long userId) {
+                                String pin, String cvv2, LocalDate expireDate, Long userId) {
 
         Transaction transaction;
         final Long fee = 6000L;
@@ -38,18 +38,26 @@ public class CardToCardServiceImpl implements CardToCardService {
         Card fromCard = cardService.findByCardNumber(fromCardNumber);
         Card toCard = cardService.findByCardNumber(toCardNumber);
 
-        if (!fromCard.getUser().getId().equals(userId))
-            throw new CustomApiException("From Card is not belongs to you",
+        if (!fromCard.getUser().getId().equals(userId)) {
+            log.warn("Unauthorized transfer attempt: userId={} tried to use cardId={}",
+                    userId, fromCard.getId());
+            throw new CustomApiException("From Card is not belongs to you!",
                     CustomApiExceptionType.UNAUTHORIZED);
+        }
 
-        if (fromCard.getCardStatus().equals(CardStatus.IN_ACTIVE))
+        if (fromCard.getCardStatus().equals(CardStatus.IN_ACTIVE)) {
+            log.warn("Transfer attempt from inactive card: cardId={}, userId={}",
+                    fromCard.getId(), userId);
             throw new CustomApiException("Your card is Inactive!",
                     CustomApiExceptionType.BAD_REQUEST);
+        }
 
-        if (toCard.getCardStatus().equals(CardStatus.IN_ACTIVE))
+        if (toCard.getCardStatus().equals(CardStatus.IN_ACTIVE)) {
+            log.warn("Transfer attempt to inactive destination card: toCardId={}, fromUserId={}",
+                    toCard.getId(), userId);
             throw new CustomApiException("Destination card is Inactive!",
                     CustomApiExceptionType.BAD_REQUEST);
-
+        }
 
         if (fromCard.getExpireDate().isBefore(LocalDate.now())) {
             log.warn("Card '{}' is expired."

@@ -37,13 +37,17 @@ public class UserCardServiceImpl implements UserCardService {
     public void updateWithdrawLimitation(String cardNumber, Long newLimit, Long userId) {
         Card card = cardService.findByCardNumber(cardNumber);
 
-        if (!card.getUser().getId().equals(userId))
-            throw new CustomApiException("Card does not belong to the current user",
+        if (!card.getUser().getId().equals(userId)) {
+            log.warn("Card with number {} does not belong to user with ID {}",
+                    cardNumber, userId);
+            throw new CustomApiException("Card does not belong to the you!",
                     CustomApiExceptionType.UNAUTHORIZED);
+        }
 
-        if (card.getCardStatus() != CardStatus.ACTIVE)
+        if (card.getCardStatus() != CardStatus.ACTIVE) {
+            log.warn("Card with number {} is inactive", cardNumber);
             throw new IllegalStateException("Card is not active");
-
+        }
         card.setWithdrawLimitation(newLimit);
         cardService.update(card);
     }
